@@ -11,19 +11,14 @@ namespace ClassedTicketSystem
         private List<string> menuOptions = new List<string>();
         private string welcome = "Welcome To Pewaukee Ticketing"; // Holds a value used for an introduction prompt
 
+        private string prompt = "Please Enter:";
+
         public void showWelcome()
         {
             Console.Clear();
             Console.WriteLine("=============================");
             Console.WriteLine(welcome);
             Console.WriteLine("=============================");
-        }
-        public void initMenuOptions()
-        {
-            menuOptions.Add("Please Enter:");
-            menuOptions.Add("1: To Create A New Ticket");
-            menuOptions.Add("2: To View All Current Tickets");
-            menuOptions.Add("3: Save Tickets To File And End The Program");
         }
 
         public void SetMenuOptions(List<string> mo)
@@ -33,6 +28,7 @@ namespace ClassedTicketSystem
 
         public void displayMenuOptions()
         {
+            System.Console.WriteLine(prompt);
             foreach(string s in menuOptions)
             {
                 System.Console.WriteLine(s);
