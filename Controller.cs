@@ -66,17 +66,7 @@ namespace ClassedTicketSystem
             view.showWelcome();
             mainLoop(menuOptions, ticketList, file);
 
-            System.Console.WriteLine("");
-
-            //////////////////////////////
-            //    Display Ticket List   //
-            //////////////////////////////
-
-            view.displayFormattedTicketList(ticketList);
-
-
-        
-        //*********************************//
+            System.Console.WriteLine("");       
         }
 
         private static void mainLoop(List<string> menuOptions, List<Ticket> ticketList, string file)
@@ -86,7 +76,6 @@ namespace ClassedTicketSystem
             Ticket tempTicket = new Ticket();
             string csv = "";
             StreamWriter sw;
-
 
             while(choice != exit)
             {
