@@ -8,6 +8,34 @@ namespace ClassedTicketSystem
 {
     public class TicketMapper
     {
+
+        public static string mapTicketToCSV(Ticket ticket)
+        {
+            string csv = ticket.ticketId.ToString();
+            csv += ",";
+            csv += ticket.summary;
+            csv += ",";
+            csv += ticket.status;
+            csv += ",";
+            csv += ticket.priority;
+            csv += ",";
+            csv += ticket.submitter;
+            csv += ",";
+            csv += ticket.assigned;
+            csv += ",";
+            csv += ticket.watching[0];
+            
+            if(ticket.watching.Length> 1)
+            {
+                for(int i = 1; i< ticket.watching.Length; i++)
+                {
+                    csv+="|";
+                    csv += ticket.watching[i];
+                }
+            }            
+
+            return csv;
+        }
         public static List<Ticket> mapTicketListFromCSV(List<string> fileStrings)
         {
             List<Ticket> ticketList = new List<Ticket>();
@@ -18,6 +46,21 @@ namespace ClassedTicketSystem
             }
 
             return ticketList;
+        }
+
+        public static int genNewTicketId(List<Ticket> ticketList)
+        {
+            int highestId = 0;
+
+            foreach(Ticket t in ticketList)
+            {
+                if(t.ticketId >= highestId)
+                {
+                    highestId = t.ticketId + 1;
+                }
+            }
+
+            return highestId;
         }
         public static Ticket mapTicketFromCSV(string csv)
         {

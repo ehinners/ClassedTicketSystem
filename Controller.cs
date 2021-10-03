@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using NLog.Web;
@@ -58,7 +59,7 @@ namespace ClassedTicketSystem
             List<string> menuOptions = new List<string>();
             menuOptions.Add("1: To Create A New Ticket");
             menuOptions.Add("2: To View All Current Tickets");
-            menuOptions.Add("3: Save Tickets To File And End The Program");
+            menuOptions.Add("3: End The Program");
 
             view.SetMenuOptions(menuOptions);
 
@@ -82,17 +83,73 @@ namespace ClassedTicketSystem
         {
             int exit = menuOptions.Count;
             int choice = -1;
+            Ticket tempTicket = new Ticket();
+            string csv = "";
             while(choice != exit)
             {
                 view.displayMenuOptions();
                 choice = getUserChoice(menuOptions);
 
+
+                if(choice == 1)
+                {
+                    tempTicket = enterTicket(ticketList);                    
+                    csv = TicketMapper.mapTicketToCSV(tempTicket);
+                    System.Console.WriteLine(csv);
+                }
                 if(choice == 2)
                 {
                     view.displayFormattedTicketList(ticketList);
                 }
-            }
+            }            
+        }
+
+        private static Ticket enterTicket(List<Ticket> ticketList)
+        {
+            Ticket ticket = new Ticket();
+            ticket.ticketId = TicketMapper.genNewTicketId(ticketList);
+            string property;
+            bool doneWatchNames = true;
+            string flag = "!DONE";
+            string flagInQuotes = "'" + flag + "'";
+            ArrayList watchers = new ArrayList();
             
+            for(int i = 2; i<8; i++)
+            {
+                view.showTicketCreationPrompt(i);
+                property = Console.ReadLine();
+                if(i==2){ticket.summary        = property;}                
+                else if(i==3){ticket.status    = property;}                
+                else if(i==4){ticket.priority  = property;}                
+                else if(i==5){ticket.submitter = property;}                
+                else if(i==6){ticket.assigned  = property;}             
+                else if(i==7)
+                {
+                    doneWatchNames = true;
+                    int watchingFlag = -1;
+                    view.showTicketCreationPrompt(watchingFlag);
+                    // Until the user types the escape phrase, they can enter as many names to the watchlist as they desire
+
+                    watchers.Add(property);
+                    
+                    while(doneWatchNames)
+                    {
+                        property = Console.ReadLine();
+                        if(property.ToUpper()==flag || property.ToUpper()==flagInQuotes)
+                        {
+                            doneWatchNames = false;   
+                        }
+                        else
+                        {
+                            watchers.Add(property);
+                        }                        
+                    }
+                    ticket.watching = watchers.ToArray(typeof(string)) as string[];
+                    
+                }             
+            }
+
+            return ticket;
         }
 
         private static int getUserChoice(List<string> menuOptions)
@@ -128,8 +185,7 @@ namespace ClassedTicketSystem
                         }
                         else
                         {
-                            validInput = true;
-                            System.Console.WriteLine("User Input Accepted");
+                            validInput = true;        
                         }
                         
                     }
@@ -137,9 +193,7 @@ namespace ClassedTicketSystem
                     {
                         logger.Error("Not Valid Input");
                     }
-                }
-
-            System.Console.WriteLine("{0} Chosen", userChoice);
+                }            
             return userChoice;
         }
         

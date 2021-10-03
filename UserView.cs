@@ -13,6 +13,15 @@ namespace ClassedTicketSystem
 
         private string prompt = "Please Enter:";
 
+        private static string aG = "Please Enter The";
+        private static string a2 = " Summary:";
+        private static string a3 = " Status:";
+        private static string a4 = " Priority:";
+        private static string a5 = " Name Of Who Submitted The Ticket:";
+        private static string a6 = " Name Of Who The Ticket Is Assigned To:";
+        private static string a7 = "Please Enter Who Is Watching The Ticket: \n (Only One Name At A Time Please)";
+        private static string watchersPrompt = "Please Enter Another Name Or '!DONE' To Finish Entering Names:";
+
         public void showWelcome()
         {
             Console.Clear();
@@ -33,6 +42,18 @@ namespace ClassedTicketSystem
             {
                 System.Console.WriteLine(s);
             }
+        }
+
+        public void showTicketCreationPrompt(int attribute)
+        {
+            if(attribute==1){System.Console.WriteLine();}
+            if(attribute==2){System.Console.WriteLine(aG + a2);}
+            if(attribute==3){System.Console.WriteLine(aG + a3);}
+            if(attribute==4){System.Console.WriteLine(aG + a4);}
+            if(attribute==5){System.Console.WriteLine(aG + a5);}
+            if(attribute==6){System.Console.WriteLine(aG + a6);}
+            if(attribute==7){System.Console.WriteLine(a7);}
+            if(attribute==-1){System.Console.WriteLine(watchersPrompt);}
         }
 
         public void formattedTicketDisplay(Ticket t)
