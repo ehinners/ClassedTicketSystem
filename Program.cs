@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NLog.Web;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ClassedTicketSystem
@@ -10,7 +11,6 @@ namespace ClassedTicketSystem
         static void Main(string[] args)
         {
             Console.Clear();
-            Console.WriteLine("");
 
             //////////////////////////////
             //      NLOG Instantiation  //
@@ -22,6 +22,39 @@ namespace ClassedTicketSystem
             var logger = NLog.Web.NLogBuilder.ConfigureNLog(path).GetCurrentClassLogger();
 
             logger.Info("NLOG Loaded");
+
+            //////////////////////////////
+            //       Create File        //
+            //////////////////////////////
+
+            string file = "Tickets.csv";  // File Name For Streamreader and Streamwriter
+
+            List<string> fileContents = new List<string>();
+
+            fileContents = FileReader.getFileContents(file);
+
+            if(fileContents == null)
+            {
+                logger.Warn("File does not exists. {file}", file);
+            }
+
+            //////////////////////////////
+            //        Create Menu       //
+            //////////////////////////////
+
+            UserView view = new UserView();
+
+            view.initMenuOptions();
+
+            view.showWelcome();
+            view.displayMenuOptions();
+
+            System.Console.WriteLine("New Line");
+
+
+
+        
+        //*********************************//
         }
     }
 }
