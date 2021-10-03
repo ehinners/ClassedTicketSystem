@@ -16,16 +16,6 @@ namespace ClassedTicketSystem
         public string assigned { get; set; }
         public string[] watching { get; set; }
 
-        public void formattedDisplay()
-        {
-            System.Console.WriteLine("{0}{1}{2}{3}{4}{5}", ticketId, summary, status, priority, submitter, assigned);
-            foreach(string watcher in watching)
-            {
-                System.Console.Write("{0}",watcher);
-            }
-            System.Console.WriteLine();
-        }
-
         public string toString()
         {
             string output;

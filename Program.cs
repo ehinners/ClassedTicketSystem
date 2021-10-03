@@ -51,7 +51,7 @@ namespace ClassedTicketSystem
             view.showWelcome();
             view.displayMenuOptions();
 
-            System.Console.WriteLine("New Line");
+            System.Console.WriteLine("");
 
             //////////////////////////////
             //       Map Tickets        //
@@ -66,10 +66,7 @@ namespace ClassedTicketSystem
             //    Display Ticket List   //
             //////////////////////////////
 
-            foreach(Ticket t in ticketList)
-            {
-                t.formattedDisplay();
-            }
+            view.displayFormattedTicketList(ticketList);
 
 
         

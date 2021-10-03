@@ -38,5 +38,41 @@ namespace ClassedTicketSystem
                 System.Console.WriteLine(s);
             }
         }
+
+        public void formattedTicketDisplay(Ticket t)
+        {
+            System.Console.WriteLine($"{t.ticketId,-6}{t.summary,-40}{t.status,-20}{t.priority,-20}{t.submitter,-20}{t.assigned,-20}");
+            System.Console.Write("-----------------------------------------------------------------");
+            System.Console.WriteLine("-------------------------------------------------------------");
+            System.Console.Write("{0,-16}","Watchers: ");
+            foreach(string watcher in t.watching)
+            {
+                System.Console.Write("{0, -16}",watcher);
+            }
+            System.Console.WriteLine();
+        }
+
+        public void displayFormattedTicketList(List<Ticket> ticketList)
+        {
+            Console.Clear();
+
+            System.Console.WriteLine("\n\n\n\n\n\n\n\n");
+            
+
+            System.Console.Write("/////////////////////////////////////////////////////////////////");
+            System.Console.WriteLine("/////////////////////////////////////////////////////////////");
+            
+            System.Console.WriteLine($"{"Id",-6}{"Summary",-40}{"Status",-20}{"Priority",-20}{"Submitter",-20}{"Assigned",-20}");
+            System.Console.Write("/////////////////////////////////////////////////////////////////");
+            System.Console.WriteLine("/////////////////////////////////////////////////////////////");
+            
+            
+            foreach(Ticket t in ticketList)
+            {
+                formattedTicketDisplay(t);
+                System.Console.Write("=================================================================");
+                System.Console.WriteLine("=============================================================");
+            }
+        }
     }
 }
