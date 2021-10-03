@@ -64,7 +64,7 @@ namespace ClassedTicketSystem
             view.SetMenuOptions(menuOptions);
 
             view.showWelcome();
-            mainLoop(menuOptions, ticketList);
+            mainLoop(menuOptions, ticketList, file);
 
             System.Console.WriteLine("");
 
@@ -79,12 +79,15 @@ namespace ClassedTicketSystem
         //*********************************//
         }
 
-        private static void mainLoop(List<string> menuOptions, List<Ticket> ticketList)
+        private static void mainLoop(List<string> menuOptions, List<Ticket> ticketList, string file)
         {
             int exit = menuOptions.Count;
             int choice = -1;
             Ticket tempTicket = new Ticket();
             string csv = "";
+            StreamWriter sw;
+
+
             while(choice != exit)
             {
                 view.displayMenuOptions();
@@ -93,9 +96,13 @@ namespace ClassedTicketSystem
 
                 if(choice == 1)
                 {
-                    tempTicket = enterTicket(ticketList);                    
+                    tempTicket = enterTicket(ticketList); 
+                    ticketList.Add(tempTicket);                 
                     csv = TicketMapper.mapTicketToCSV(tempTicket);
-                    System.Console.WriteLine(csv);
+                    
+                    sw = File.AppendText(file);                      
+                    sw.WriteLine(csv);                    
+                    sw.Close(); // Saves the file   
                 }
                 if(choice == 2)
                 {
