@@ -12,8 +12,6 @@ namespace ClassedTicketSystem
         {
             List<string> fileContents = new List<string>();
 
-            StreamWriter sw;
-
             //////////////////////////////
             //    Loading Movie File    //
             //////////////////////////////

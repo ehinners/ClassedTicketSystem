@@ -12,6 +12,8 @@ namespace ClassedTicketSystem
         {
             Console.Clear();
 
+            List<Ticket> ticketList = new List<Ticket>();
+
             //////////////////////////////
             //      NLOG Instantiation  //
             //////////////////////////////
@@ -51,6 +53,23 @@ namespace ClassedTicketSystem
 
             System.Console.WriteLine("New Line");
 
+            //////////////////////////////
+            //       Map Tickets        //
+            //////////////////////////////
+
+            if(fileContents != null)
+            {
+                ticketList = TicketMapper.mapTicketListFromCSV(fileContents);
+            }            
+
+            //////////////////////////////
+            //    Display Ticket List   //
+            //////////////////////////////
+
+            foreach(Ticket t in ticketList)
+            {
+                t.formattedDisplay();
+            }
 
 
         
